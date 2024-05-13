@@ -20,4 +20,8 @@
         border-color: black;
         opacity: 90%;
     }
+    @media(max-width: 502px){
+        min-width: 320px;
+        width: 100%;
+    }
 }

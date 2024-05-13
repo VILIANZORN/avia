@@ -11,7 +11,7 @@ function App() {
   return (
     <div className="App">
       <img className={classes.logo} src={Logotip} alt="logo" />
-      <div style={{ display: 'flex', flexDirection: 'row', gap: '20px' }}>
+      <div className={classes.container}>
         <Transfers />
         <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
           <Tabs />

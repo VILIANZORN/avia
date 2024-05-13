@@ -18,6 +18,10 @@
     text-transform: uppercase;
     transition: 0.2s ease-in-out;
     cursor: pointer;
+    @media(max-width: 768px){
+        width: 0.3fr;
+        height: 70px;
+    }
 }
 .tab__active{
     background: rgb(33, 150, 243);
