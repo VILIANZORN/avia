@@ -52,7 +52,7 @@ export default function CardList() {
     if (searchId !==null && filterActive.length !== 0) {
       errorCatchingFetchTickets(searchId);
     }
-  }, [searchId, tickets, filterActive, cheap, fast, optimal]);
+  }, [searchId, tickets]);
 
   const handleShowMore = () => {
     setTicketValue(ticketValue + 5);
