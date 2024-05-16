@@ -5,7 +5,9 @@ import { Empty, Spin, Alert } from 'antd';
 import { Offline, Online } from 'react-detect-offline';
 
 import ShowMore from '../show-more/show-more';
-import { fetchSearchId, fetchTickets } from '../../store/cardSlice';
+import { fetchSearchId, fetchTickets, setLoading, setSearchId, setTickets } from '../../store/cardSlice';
+import { selectFilterActive } from '../../store/filterSlice'
+import { selectCheap, selectFast, selectOptimal } from '../../store/tabsSlice'
 import Card from '../card/card';
 
 import classes from './cardLIst.module.scss';
@@ -17,11 +19,15 @@ export default function CardList() {
   const fetchTicketsDispatch = (id) => dispatch(fetchTickets(id));
 
   const [ticketValue, setTicketValue] = useState(5);
-  const [err, setErr] = useState(0);
+  const [errorCount, setErrorCount] = useState(0);
   const [showAlert, setShowAlert] = useState(false);
-  const { tickets, searchId, loading } = useSelector((state) => state.card);
-  const { cheap, fast, optimal } = useSelector((state) => state.tabs);
-  const { filterActive } = useSelector((state) => state.filter);
+  const tickets = useSelector(setTickets);
+  const searchId = useSelector(setSearchId);
+  const loading = useSelector(setLoading);
+  const cheap = useSelector(selectCheap);
+  const fast = useSelector(selectFast);
+  const optimal = useSelector(selectOptimal);
+  const filterActive = useSelector(selectFilterActive);
 
   const filtredTickets = tickets.filter((ticket) => {
     const { segments } = ticket;
@@ -33,11 +39,12 @@ export default function CardList() {
   let maxTickets = sortedPrice.slice(0, ticketValue);
 
   const errorCatchingFetchTickets = (id) => {
+    if (!navigator.onLine) return; 
     fetchTicketsDispatch(id)
       .unwrap()
       .catch(() => {
-        setErr((prev) => prev + 1);
-        if (err < 3) {
+        setErrorCount((prevCount) => prevCount + 1);
+        if (errorCount < 3) {
           errorCatchingFetchTickets(id);
         } else {
           setShowAlert(true);
@@ -50,9 +57,23 @@ export default function CardList() {
   }, []);
 
   useEffect(() => {
-    if (searchId !== null && filterActive.length !== 0) {
+    if (searchId !== null ) {
       errorCatchingFetchTickets(searchId);
     }
+  }, [searchId, tickets, errorCount]);
+
+  useEffect(() => {
+    const handleOnline = () => {
+      if (searchId !== null ) {
+        errorCatchingFetchTickets(searchId);
+      }
+    };
+  
+    window.addEventListener('online', handleOnline);
+  
+    return () => {
+      window.removeEventListener('online', handleOnline);
+    };
   }, [searchId, tickets]);
 
   const handleShowMore = () => {

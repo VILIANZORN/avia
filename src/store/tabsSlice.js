@@ -27,5 +27,8 @@ const tabsSlice = createSlice({
 });
 
 export const { setCheap, setFast, setOptimal } = tabsSlice.actions;
+export const selectCheap = (state) => state.tabs.cheap;
+export const selectFast = (state) => state.tabs.fast;
+export const selectOptimal = (state) => state.tabs.optimal;
 
 export default tabsSlice.reducer;

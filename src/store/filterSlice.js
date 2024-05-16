@@ -84,5 +84,11 @@ const filterSlice = createSlice({
 });
 
 export const { setAllTransfer, setNoneTransfer, setOneTransfer, setTwoTransfer, setThreeTransfer } = filterSlice.actions;
+export const selectFilterActive = (state) => state.filter.filterActive;
+export const selectThreeTransfer = (state) => state.filter.threeTransfer;
+export const selectTwoTransfer = (state) => state.filter.twoTransfer;
+export const selectOneTransfer = (state) => state.filter.oneTransfer;
+export const selectNoneTransfer = (state) => state.filter.noneTransfer;
+export const selectAllTransfer = (state) => state.filter.allTransfer;
 
 export default filterSlice.reducer;

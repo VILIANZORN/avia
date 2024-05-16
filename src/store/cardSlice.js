@@ -47,5 +47,7 @@ const cardSlice = createSlice({
       })
   },
 });
-
+export const setTickets = (state) => state.card.tickets;
+export const setSearchId = (state) => state.card.searchId;
+export const setLoading = (state) => state.card.loading;
 export default cardSlice.reducer;

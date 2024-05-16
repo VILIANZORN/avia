@@ -1,32 +1,47 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { setAllTransfer, setNoneTransfer, setOneTransfer, setTwoTransfer, setThreeTransfer } from '../../store/filterSlice';
+import {
+  setAllTransfer,
+  setNoneTransfer,
+  setOneTransfer,
+  setTwoTransfer,
+  setThreeTransfer,
+  selectAllTransfer,
+  selectNoneTransfer,
+  selectOneTransfer,
+  selectTwoTransfer,
+  selectThreeTransfer,
+} from '../../store/filterSlice';
 
 import classes from './transfers.module.scss';
 
 export default function Transfers() {
   const dispatch = useDispatch();
-  const filterState = useSelector(state => state.filter);
+  const noneTransfer = useSelector(selectNoneTransfer);
+  const oneTransfer = useSelector(selectOneTransfer);
+  const twoTransfer = useSelector(selectTwoTransfer);
+  const threeTransfer = useSelector(selectThreeTransfer);
+  const allTransfer = useSelector(selectAllTransfer);
 
   const handleAllTransferChange = () => {
-    dispatch(setAllTransfer(!filterState.allTransfer));
+    dispatch(setAllTransfer(!allTransfer));
   };
 
   const handleNoneTransferChange = () => {
-    dispatch(setNoneTransfer(!filterState.noneTransfer));
+    dispatch(setNoneTransfer(!noneTransfer));
   };
 
   const handleOneTransferChange = () => {
-    dispatch(setOneTransfer(!filterState.oneTransfer));
+    dispatch(setOneTransfer(!oneTransfer));
   };
 
   const handleTwoTransferChange = () => {
-    dispatch(setTwoTransfer(!filterState.twoTransfer));
+    dispatch(setTwoTransfer(!twoTransfer));
   };
 
   const handleThreeTransferChange = () => {
-    dispatch(setThreeTransfer(!filterState.threeTransfer));
+    dispatch(setThreeTransfer(!threeTransfer));
   };
 
   return (
@@ -35,33 +50,58 @@ export default function Transfers() {
       <ul className={`${classes.transfers__ul} ${classes['transfers--text']}`}>
         <li>
           <label>
-            <input type="checkbox" className={classes['real-checkbox']} checked={filterState.allTransfer} onChange={handleAllTransferChange} />
+            <input
+              type="checkbox"
+              className={classes['real-checkbox']}
+              checked={allTransfer}
+              onChange={handleAllTransferChange}
+            />
             <span className={classes['custom-checkbox']} />
             Все
           </label>
         </li>
         <li>
           <label>
-            <input type="checkbox" className={classes['real-checkbox']} checked={filterState.noneTransfer} onChange={handleNoneTransferChange} />
+            <input
+              type="checkbox"
+              className={classes['real-checkbox']}
+              checked={noneTransfer}
+              onChange={handleNoneTransferChange}
+            />
             <span className={classes['custom-checkbox']} />
             Без пересадок
           </label>
         </li>
         <li>
           <label>
-            <input type="checkbox" className={classes['real-checkbox']} checked={filterState.oneTransfer} onChange={handleOneTransferChange} />
+            <input
+              type="checkbox"
+              className={classes['real-checkbox']}
+              checked={oneTransfer}
+              onChange={handleOneTransferChange}
+            />
             <span className={classes['custom-checkbox']} />1 пересадка
           </label>
         </li>
         <li>
           <label>
-            <input type="checkbox" className={classes['real-checkbox']} checked={filterState.twoTransfer} onChange={handleTwoTransferChange} />
+            <input
+              type="checkbox"
+              className={classes['real-checkbox']}
+              checked={twoTransfer}
+              onChange={handleTwoTransferChange}
+            />
             <span className={classes['custom-checkbox']} />2 пересадки
           </label>
         </li>
         <li>
           <label>
-            <input type="checkbox" className={classes['real-checkbox']} checked={filterState.threeTransfer} onChange={handleThreeTransferChange} />
+            <input
+              type="checkbox"
+              className={classes['real-checkbox']}
+              checked={threeTransfer}
+              onChange={handleThreeTransferChange}
+            />
             <span className={classes['custom-checkbox']} />3 пересадки
           </label>
         </li>

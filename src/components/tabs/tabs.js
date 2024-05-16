@@ -1,13 +1,15 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { setCheap, setFast, setOptimal } from '../../store/tabsSlice';
+import { setCheap, setFast, setOptimal, selectCheap, selectFast, selectOptimal } from '../../store/tabsSlice';
 
 import classes from './tabs.module.scss';
 
 export default function Tabs() {
   const dispatch = useDispatch();
-  const { cheap, fast, optimal } = useSelector((state) => state.tabs);
+  const cheap = useSelector(selectCheap);
+  const fast = useSelector(selectFast);
+  const optimal = useSelector(selectOptimal);
 
   const handleCheapClick = () => {
     dispatch(setCheap());
